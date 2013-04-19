@@ -1,0 +1,44 @@
+      rem. Solve simultaneous equations using matrix inversion
+      
+      if himem<=page+12288 then himem=page+5888
+      install @lib$+"ARRAYLIB"
+      install @lib$+"WINLIB5"
+      
+      repeat
+        input "Enter number of unknowns (2-8): "U%
+      until U%>=2 and U%<=8
+      
+      vdu 23,22,720;368;8,16,16,128:off
+      dim M(U%-1,U%-1),V(U%-1,0),H%(U%-1,U%),T% 10
+      
+      for R% = 0 to U%-1
+        print
+        for C% = 0 to U%
+          if C%<U% print chr$(C%+97)".      "; else print " = "
+          H%(R%,C%) = fn_editbox("0",C%*80+18,R%*32+16,42,20,0,&810080)
+          if C%<U%-1 print "+ ";
+        next
+      next
+      
+      S% = fn_button("SOLVE",328,270,64,22,fn_setproc(procsolve),0)
+      
+      print tab(24,19)"Enter values in boxes then click on SOLVE"''
+      repeat until inkey(1)=0
+      
+      def procsolve
+      print tab(0,21) spc170 tab(0,21) chr$13;
+      
+      for R% = 0 to U%-1
+        for C% = 0 to U%
+          sys "GetWindowText",H%(R%,C%),T%,10 to L% : T%?L% = 13
+          if C%<U% M(R%,C%) = val$T% else V(R%,0) = val$T%
+        next
+      next
+      if fn_det(M())=0 print "No unique solution":endproc
+      
+      proc_invert(M())
+      V() = M().V()
+      for C% = 0 to U%-1
+        print ,chr$(C%+97)" = ";V(C%,0)" ";
+      next
+      endproc
