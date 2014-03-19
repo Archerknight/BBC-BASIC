@@ -1,0 +1,3 @@
+dim character{(2) strength%, skill%, dice%}
+
+for x% = 1 to 2
