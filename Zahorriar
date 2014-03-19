@@ -1,3 +1,21 @@
 dim character{(2) strength%, skill%, dice%}
 
 for x% = 1 to 2
+
+print "input character's strength: "
+input "" character{(x%)}.strength%
+
+print "input character's skill: "
+input "" character{(x%)}.skill%
+
+character{(x%)}.dice% = rnd(6)
+
+next
+
+strengthmodifier% = abs((character{(1)}.strength% - character{(2)}.strength%)/5)
+skillmodifier% = abs((character{(1)}.skill% - character{(2)}.skill%)/5)
+
+for x% = 1 to 2
+print "Character rolled: " character{(x%)}.dice%
+next
+
