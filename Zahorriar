@@ -19,3 +19,22 @@ for x% = 1 to 2
 print "Character rolled: " character{(x%)}.dice%
 next
 
+if character{(1)}.dice% > character{(2)}.dice% then
+winner% = 1
+loser% = 2
+continue = true
+else
+if character{(2)}.dice% < character{(1)}.dice% then
+winner% = 2
+loser% = 1
+continue = true
+else
+continue = false
+endif
+endif
+
+if continue = true then
+
+INSERT CALCULATIONS HERE
+
+endif
