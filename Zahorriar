@@ -35,6 +35,13 @@ endif
 
 if continue = true then
 
-INSERT CALCULATIONS HERE
+character{(winner%)}.strength% = character{(winner%)}.strength% + strengthmodifier%
 
+follow the pattern, it is quite easy from here.
+
+endif
+
+for x% = 1 to 2
+if character.strength% <= 0 then
+print "character is dead"
 endif
